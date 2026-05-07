@@ -1,8 +1,14 @@
 import pygame
+import random
+
 #initaliserar pygame
 pygame.init()
+#skärmdimensioner
+skärm_bredd = 800
+skärm_höjd = 600
 #speletsskärm
-screen = pygame.display.set_mode((800, 600))
+screen = pygame.display.set_mode((skärm_bredd, skärm_höjd))
+pygame.display.set_caption("Fånga Äpplet")
 #färger
 GREEN = (0, 255, 0)
 BROWN = (150, 75, 0)
@@ -11,6 +17,27 @@ RED = (255, 0, 0)
 clock = pygame.time.Clock()
 #spelsats
 game = True
+#några spelvariabler
+korg_bredd = 100
+korg_höjd = 50
+korg_x = skärm_bredd // 2 - korg_bredd // 2
+korg_hastighet = 10
+
+äpple_bredd = 50
+äpple_höjd = 35
+äpple_hastighet = 5
+
+poäng = 0
+
+def måla_korg(x,y):
+    pygame.draw.rect(screen, BROWN, [x,y,korg_bredd,korg_höjd])
+
+def måla_äpple(x,y):
+    pygame.draw.ellipse(screen, RED, [x,y,äpple_bredd,äpple_höjd])
+
+def visa_poäng(poäng):
+    font = pygame.font.SysFont(None, 36)
+    
 #spelloopen
 while game:
     
