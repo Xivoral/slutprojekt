@@ -22,6 +22,7 @@ game = True
 korg_bredd = 100
 korg_höjd = 50
 korg_x = skärm_bredd // 2 - korg_bredd // 2
+korg_y = skärm_höjd - korg_höjd - 20
 korg_hastighet = 10
 
 äpple_bredd = 50
@@ -43,7 +44,7 @@ def visa_poäng(poäng):
 
 def spel_slut():
     font = pygame.font.SysFont(None, 72)
-    text = font.render("Spel slut" + True, WHITE)
+    text = font.render("Spel slut", True, WHITE)
     screen.blit(text, (skärm_bredd // 2 - 150, skärm_höjd // 2 - 36))
     pygame.display.update()
     pygame.time.delay(2000)
@@ -71,18 +72,33 @@ def spel_loop():
         if keys[pygame.K_RIGHT]:
             korg_x += korg_hastighet
         
+        if korg_x < 0:
+            korg_x = 0
+        elif korg_x > skärm_bredd - korg_bredd:
+            korg_x = skärm_bredd - korg_bredd
+        
+        äpple_y += äpple_hastighet
+
+        if äpple_y + äpple_höjd > korg_y and korg_x < äpple_x + äpple_bredd < korg_x + korg_bredd:
+            poäng += 1
+            äpple_x = random.randint(0, skärm_bredd - äpple_bredd)
+            äpple_y = -äpple_höjd
+        
+        måla_korg(korg_x, korg_y)
+        måla_äpplen(äpple_x, äpple_y)
+        visa_poäng(poäng)
+
+        if äpple_y > skärm_höjd:
+            spel_slut()
+    
+        pygame.display.update()
+        clock.tick(60)
+    
 
 
 
-#spelloopen
+
+
 while game:
-    
-    screen.fill(GREEN)
-    pygame.display.update()
-    clock.tick(60)
-    for event in pygame.event.get():      
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
-    
+    spel_loop()
     
