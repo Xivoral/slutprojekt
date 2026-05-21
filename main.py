@@ -51,7 +51,28 @@ def spel_slut():
     quit()
 
 def spel_loop():
-    
+    global poäng
+    global korg_x
+
+    äpple_x = random.randint(0, skärm_bredd - äpple_bredd)
+    äpple_y = -äpple_höjd
+
+    kör = True
+    while kör:
+        screen.fill(GREEN)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                kör = False
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            korg_x -= korg_hastighet
+        if keys[pygame.K_RIGHT]:
+            korg_x += korg_hastighet
+        
+
+
 
 #spelloopen
 while game:
